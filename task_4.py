@@ -24,17 +24,13 @@ def inverse_fourier_transform(image):
     return restored_photo.real
 
 
-src_image = cv.imread('source_images/task_2_3/smoking-boys.jpg', 0)
-kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]])
+src_image = cv.imread('source_images/task_4/bmw.jpeg', 0)
+# display_image(src_image, 'Source')
 
-sharpened = cv.filter2D(src_image, ddepth=-1, kernel=kernel)
-display_image(sharpened, 'Sharpened', 1)
+kernel = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]])
+"""
+edges = cv.filter2D(src_image, ddepth=-1, kernel=kernel)
+display_image(edges, 'Edges')
+"""
 
 
-h, w = src_image.shape
-# print(src_image.shape)
-ht, wd = h+3-1, w+3-1
-
-f_mp = np.multiply(fourier_transform(src_image, wd, ht), fourier_transform(kernel, wd, ht))
-sharpened = inverse_fourier_transform(f_mp)
-display_image(sharpened, f'Sharpened_fourier', 0)
